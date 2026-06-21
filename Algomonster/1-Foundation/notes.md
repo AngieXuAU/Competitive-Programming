@@ -104,3 +104,34 @@ g++ -std=c++17 find_max.cpp -o find_max.exe
 ```
 
 Both approaches let you keep tests inside the same file (`find_max.cpp`) for convenience.
+
+## `std::string::npos` and `find()`
+
+- `npos` = "no position", special constant returned when search fails.
+- `string.find(char)` or `string.find(substring)` returns the index of first match, or `npos` if not found.
+
+Always check `!= npos` before using the index:
+
+```cpp
+std::string s = "hello world";
+size_t pos = s.find('o');
+if (pos != std::string::npos) {
+    std::cout << "Found at " << pos << '\n';  // 4
+}
+```
+
+Pattern: returns both the success status and the position in one value.
+
+## Built-in Algorithms
+
+### String
+
+- `std::transform(first, last, d_first, op)` applies `op` to each element in `[first, last)` and writes the results starting at `d_first`.
+- If `d_first` points into the same container as the input range, the transform can overwrite elements that have not yet been read.
+- Example: `std::transform(text.begin(), text.end(), text.begin() + 2, ::toupper);` reads from `text` and writes back shifted by 2, so later steps may use already-transformed characters.
+
+## Optimisation and Memory
+
+- `result.reserve(5000);` reserves space for 5000 characters.
+- If you append beyond that, `std::string` will grow and may reallocate; it does not stop you from adding.
+

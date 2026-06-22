@@ -32,6 +32,7 @@ std::string compress_string(const std::string& s){
 int main(){
     std::cout << compress_string("aaabbc") << "\n";
     std::cout << compress_string("aabbccdd") << "\n";
-    std::cout << compress_string("abc") << "\n";
+    std::string random_string = "aabbbbbbbbc";      // this would work if you did std::string& s ie. without the const
+    std::cout << compress_string(random_string) << "\n";
     return 0;
 }

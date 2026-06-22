@@ -2,9 +2,10 @@
 #include <string>
 
 int main(){
-    std::string s = "racecar";
+    char letter = 'a';
+    int number = 10;
+    int* ptr = &number;
 
-    s.erase(s.size() / 2, 1);
+    std::cout << ptr << "\t" << *ptr << std::endl;
 
-    std::cout << "New s: " << s << std::endl;
 } 

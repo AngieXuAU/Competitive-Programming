@@ -6,3 +6,6 @@ build/
 
 # Ignore VS Code workspace settings
 .vscode/
+
+# Ignore steering files
+.kiro/

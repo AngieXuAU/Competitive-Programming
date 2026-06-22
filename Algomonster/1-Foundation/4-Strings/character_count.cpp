@@ -21,7 +21,7 @@ int main(){
         asciiFreq[c] ++;
     }
 
-    std::cout << "Method 1 results:" << std::endl;
+    std::cout << "Method 1 results:" << "\n";
     for (int i = 97; i <= 122; i++){
         if (asciiFreq[i] != 0){
             std::cout << char(i) << ": " << asciiFreq[i] << "\n";
@@ -37,9 +37,9 @@ int main(){
         }
     }
     
-    std::cout << "Method 2 results:" << std::endl;
+    std::cout << "Method 2 results:" << "\n";
     for (const auto& pair: letterFreq){
-        std::cout << pair.first << ": " << pair.second << std::endl;
+        std::cout << pair.first << ": " << pair.second << "\n";
     }
 
     auto end = std::chrono::steady_clock::now();

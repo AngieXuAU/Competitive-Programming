@@ -32,6 +32,21 @@ These can trigger warnings or be rejected under stricter initialization rules.
 - `float size{ append_and_count(arr, vals) };` still works for this case because `int` to `float` is not narrowing here.
 - Brace initialization is useful because it forbids true narrowing conversions, such as `int x{5.5};` or `int x{someFloat};` when data would be truncated.
 
+### String and character conversion
+
+- `std::string s{c};` is valid when `c` is a `char`; `std::string` can construct a one-character string from it.
+- `std::string s = "hello";` constructs from a C-string literal (`const char*`).
+- `std::string` can also be created from a temporary `std::string` or any compatible string-like constructor.
+
+### Casts and conversions
+
+- implicit conversion: the compiler converts compatible types automatically, e.g. `int` → `float`, `char` → `int`, `float` → `double`.
+- explicit conversion / cast: tell the compiler to convert, e.g. `static_cast<int>(x)`.
+- `static_cast<T>(value)` is the normal explicit cast for safe conversions.
+- `const_cast<T>(value)` removes const/volatile qualifiers.
+- `reinterpret_cast<T>(value)` is for low-level pointer or bit reinterpretation.
+- `dynamic_cast<T>(value)` is for safe downcasting within polymorphic class hierarchies.
+
 ### Key point
 
 The compiler accepts `float size = append_and_count(arr, vals);` because the integer result is safely converted to a floating-point value, not because the types are identical.

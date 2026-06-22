@@ -2,8 +2,9 @@
 #include <string>
 
 int main(){
-    char c = 'x';
-    std::string s{c};
+    std::string s = "racecar";
 
-    std::cout << s;
-}
+    s.erase(s.size() / 2, 1);
+
+    std::cout << "New s: " << s << std::endl;
+} 

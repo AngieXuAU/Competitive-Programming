@@ -66,3 +66,72 @@
 - manual reverse loop
   - same complexity: O(n) time, O(n) space
   - slightly more code, explicit character-by-character build
+  - example: `for (int i = s.size()-1; i >= 0; --i) rev.push_back(s[i]);`
+
+## Anagram
+
+- Method 1: sort and compare
+  - alphabetise both strings and compare the sorted sequences
+  - time: O(n log n)
+  - space: O(n)
+  - simple and correct, but not optimal for large strings
+
+- Method 2: remove matching letters
+  - build a character list for the first string, then for each letter in the second string find and erase one matching entry
+  - time: O(n^2)
+  - space: O(n)
+  - avoids sorting, but repeated search and erase make it slow for long inputs
+
+- Method 3: count character frequencies
+  - increment counts for `str1` and decrement counts for `str2`, then check that all counts are zero
+  - time: O(n)
+  - space: O(k) where `k` is the alphabet/domain size, often O(1) for fixed alphabets
+  - the best general method for anagram checking when the alphabet is bounded
+
+### Recommendation
+- use Method 3 for best performance
+- Method 1 is acceptable when input size is moderate and simplicity is desired
+- avoid Method 2 in performance-sensitive code because it is quadratic
+
+## Remove Vowels
+
+### Containers
+- prefer fixed, immutable vowel data over a mutable `std::vector<char>`
+- `constexpr std::string_view vowels = "aeiouAEIOU";`
+  - fixed at compile time
+  - read-only sequence
+  - supports `std::find(vowels.begin(), vowels.end(), c)`
+- `constexpr std::array<char, 10> vowels = {'a','e','i','o','u','A','E','I','O','U'};`
+  - fixed-size container
+  - also supports `std::find(vowels.begin(), vowels.end(), c)`
+- for maximum lookup speed, use a fixed boolean table:
+  - `static constexpr std::array<bool, 256> is_vowel = ...;`
+  - lookup by `is_vowel[static_cast<unsigned char>(c)]`
+  - avoids searching entirely
+- summary
+  - use `std::string_view` or `std::array<char, N>` for safety and fixed content
+  - avoid a modifiable `std::vector` when the set of vowels is constant
+
+### Remove Vowels methods
+- Method 1: remove while iterating
+  - buggy because erasing characters while moving through the same string invalidates iterators and shifts the remaining data
+  - time: worst-case O(n^2) if repeated erase is used
+  - space: O(1) extra, but not recommended because it is unsafe and slow
+- Method 2: build a new result string
+  - append only non-vowel characters to a new `std::string`
+  - time: O(n) with fixed vowel lookup; effectively linear with `m=10` vowel checks
+  - space: O(n) for the output string, safe and clear
+- Method 3: `std::remove_if` + `erase`
+  - compact non-vowels first, then erase the removed suffix
+  - time: O(n) overall
+  - space: O(n) if making a copy first, otherwise O(1) extra when modifying in place
+- Method 4: fixed boolean lookup table
+  - use a compile-time `std::array<bool, 256>` and test `is_vowel[static_cast<unsigned char>(c)]`
+  - time: O(n) with constant-time membership checks
+  - space: O(1) extra for the lookup table
+
+### Recommendation
+- safest: build a new output string and skip vowels
+- best fixed data: use `constexpr std::string_view` or `constexpr std::array<char, N>` for the vowel set
+- fastest membership: use a compile-time boolean table for O(1) checks
+- avoid erasing while iterating forward through the same container

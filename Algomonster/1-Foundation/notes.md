@@ -56,6 +56,10 @@ The compiler accepts `float size = append_and_count(arr, vals);` because the int
 - An iterator is a position marker for a container like `std::vector`.
 - It points to one element and can move to the next or previous element.
 - It is not an `int`; it is a special object used by container operations like `insert` and `erase`.
+- `rbegin()` / `rend()` are reverse iterators:
+  - `s.rbegin()` points to the last character of `s`
+  - `s.rend()` is the reverse-end marker, one past the first character
+  - use them to traverse or copy the container backwards
 
 Example:
 - `auto it = arr1.begin() + 2;` stores the iterator position.

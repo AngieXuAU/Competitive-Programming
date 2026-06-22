@@ -7,8 +7,9 @@ std::string reverse_str(const std::string& s){
     std::string rev(s.rbegin(), s.rend());
 
     // method 2: std::reverse
-    std::string rev = s;
-    std::reverse(rev.begin(), rev.end());
+    // std::string rev = s;
+    // std::reverse(rev.begin(), rev.end());
+
     return rev;
 }
 

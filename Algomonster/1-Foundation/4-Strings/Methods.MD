@@ -135,3 +135,17 @@
 - best fixed data: use `constexpr std::string_view` or `constexpr std::array<char, N>` for the vowel set
 - fastest membership: use a compile-time boolean table for O(1) checks
 - avoid erasing while iterating forward through the same container
+
+## Miscellaneous
+
+### Substring and stoi
+- `std::string::substr(pos, len)` returns a new `std::string` from `pos` for `len` characters.
+  - `instruction.substr(5)` returns the substring from index `5` to the end of `instruction`
+  - `instruction.substr(0, 4)` returns the first four characters
+- `std::stoi(s)` converts a numeric string `s` into an `int`
+  - requires `#include <string>`
+  - throws `std::invalid_argument` if `s` is not a valid integer string
+  - throws `std::out_of_range` if the value is too large for `int`
+- common pattern:
+  - `int value = std::stoi(instruction.substr(5));`
+  - extracts the substring starting at character 5, then parses it as an integer

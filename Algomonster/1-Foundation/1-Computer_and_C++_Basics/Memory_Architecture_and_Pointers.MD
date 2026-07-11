@@ -72,3 +72,5 @@ int main() {
     return 0;
 }
 ```
+
+https://gemini.google.com/app/c612f184294a5ca5

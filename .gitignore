@@ -1,8 +1,15 @@
-# Ignore compiled executables
+# Ignore compiled executables and object files
 *.exe
+*.out
+*.o
+*.obj
+*.aout
+
+a.out
 
 # Ignore build directories
 build/
+.build/
 
 # Ignore VS Code workspace settings
 .vscode/

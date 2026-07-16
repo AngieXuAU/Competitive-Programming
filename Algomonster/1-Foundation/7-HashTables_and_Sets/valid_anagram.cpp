@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <string>
-#include <unordered_map>
+// #include <unordered_map>
 // #include <vector>
 // #include <algorithm>
 
@@ -11,30 +11,37 @@ bool valid_anagram(std::string s, std::string t) {
         return false;
     }
 
-    std::unordered_map<char, int> freqs = {};
-    // construct frequency map from s
+    int freqs[256] = {0};
+
+    // construct the frequency map using s
     for (char c : s) {
-        freqs[c]++;
-    }
-    // deconstruct using t
-    for (char c2 : t) {
-        if (freqs[c2] > 0) {
-            freqs[c2]--;
-        } else {
-            return false; // freqs[c2] defaults to 0
-        }
+        freqs[(int)c]++;
     }
 
+    // deconstruct using t
+    for (char d : t) {
+        if (freqs[(int)d] <= 0) {
+            return false;
+        }
+        freqs[(int)d]--;
+    }
+
+    // make sure everything is 0
+    for (int i = 0; i < 256; i++) {
+        if (freqs[i] != 0) {
+            return false;
+        }
+    }
     return true;
 }
 
 int main() {
     std::string s1 = "hello";
-    std::string t1 = "world";
+    std::string t1 = "hello";
     std::string s2 = "aab";
     std::string t2 = "aba";
-    std::string s3 = "rat";
-    std::string t3 = "car";
+    std::string s3 = "aab";
+    std::string t3 = "abb";
     std::string s4 = "listen";
     std::string t4 = "silent";
 

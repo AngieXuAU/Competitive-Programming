@@ -154,3 +154,17 @@ Pattern: returns both the success status and the position in one value.
 - `result.reserve(5000);` reserves space for 5000 characters.
 - If you append beyond that, `std::string` will grow and may reallocate; it does not stop you from adding.
 
+## Maps & Structured Bindings (C++17)
+
+When iterating over maps (like `std::unordered_map`), it is best practice to use `const auto &` and structured bindings:
+
+```cpp
+for (const auto &[key, value] : dict) {
+    std::cout << key << ": " << value << '\n';
+}
+```
+
+- **Structured Binding (`[key, value]`)**: Unpacks the `std::pair` directly into two named variables. This feature was introduced in **C++17**. (If your IDE highlights this as an error, ensure your C++ standard is set to C++17 or newer).
+- **`auto`**: Asks the compiler to deduce the `std::pair<const Key, Value>` type automatically.
+- **`&` (Reference)**: Looks directly at the data inside the map instead of making a slow copy of every single pair during iteration.
+- **`const`**: Prevents accidental modifications to the map while reading, clearly signaling your intent.

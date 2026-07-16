@@ -20,3 +20,5 @@ AGENTS.md
 
 # Ignore formatting
 .clang-format
+
+compile_flags.txt

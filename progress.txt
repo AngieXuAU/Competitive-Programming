@@ -1,0 +1,10 @@
+# Raw Text file for me to record my goals and progress
+
+created 16/07/2026
+
+16/07/2026
+- ~2 weeks until Semester 2 of university begins
+- Aiming to finish Algomonster Foundation by the end of this week
+- Aiming to finish Algomonster Core Patterns by the end of Week 3 of uni
+
+- by the end of this week, be able to explain cpp toolchain, strings from first principles

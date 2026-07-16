@@ -2,30 +2,32 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
-#include <unordered_set>
 
 int first_unique_character(const std::string &s) {
     // construct map key = ascii of character, value = index or -1 if repeated
     int indexes[256];
-    std::fill(indexes, indexes + 256, -1);
+    std::fill(indexes, indexes + 256,
+              -1); // default -1: not seen | -2: seen multiple times
 
-    std::unordered_set<char> seen;
-
-    for (int i = 0; i < s.size(); i++) {
+    for (int i = 0; i < s.size(); i++) { // loop through given string
         char c = s[i];
-        if (seen.contains(c)) {
-            indexes[(int)c] = -1;
-        } else {
-            indexes[(int)c] = i;
-            seen.insert(c);
+        unsigned char uc = c; // force integer casting to be positive
+        int ascii = (int)uc;
+
+        if (indexes[ascii] == -2) {
+            continue; // skip if already seen multiple times
+        } else if (indexes[ascii] == -1) { // if not already seen
+            indexes[ascii] = i;            // set value to index
+        } else {                           // already seen once
+            indexes[ascii] = -2;
         }
     }
 
     // find minimum index
     int min_index = s.size();
     for (int j = 0; j < 256; j++) {
-        if (indexes[j] == -1) {
-            continue;
+        if (indexes[j] < 0) {
+            continue; // either not seen or seen multiple times
         } else if (indexes[j] < min_index) {
             min_index = indexes[j];
         }

@@ -69,3 +69,79 @@ for (int x : v) q.push(x);
 
 - `std::queue` does not take two iterators like `std::vector` does
   - `std::queue<int> q(v.begin(), v.end());` is not valid
+
+## Linked Lists
+
+- **Basic Node Structure**: A node consists of a value (`val`) and a pointer to the next node (`next`).
+  - Accessing elements requires traversing from the `head` node ($O(N)$ time).
+
+### Adding to Tail: Time Complexity Comparison
+
+#### 1. Without a Tail Pointer ($O(N)$ Time)
+If you only keep track of the `head` pointer, appending a node requires traversing the entire list to locate the current tail node.
+- **Complexity**: $O(N)$ time, $O(1)$ space.
+
+```cpp
+Node<int>* insert_at_tail(Node<int>* head, int value) {
+    Node<int>* current = head;
+    while (current->next != nullptr) {
+        current = current->next;
+    }
+    current->next = new Node<int>{value};
+    return head;
+}
+```
+
+#### 2. With a Tail Pointer ($O(1)$ Time)
+Maintaining a pointer directly to the last node (the `tail`) allows appending a new node in constant time.
+- **Complexity**: $O(1)$ time, $O(1)$ space.
+
+### Designing the Tail Pointer (Best Practices)
+
+- **Incorrect/Unconventional Approach (Inside every `Node`)**: Storing `Node* tail` inside every node requires updating all nodes' `tail` pointers whenever a new element is appended, degrading the operation back to $O(N)$ time complexity.
+- **Asymmetric Approach (Only in the `head` Node)**: Storing the `tail` pointer only in the `head` node makes the head special and creates overhead if the head pointer changes (e.g., prepending or deleting the head).
+- **Conventional Approach (Wrapper Struct)**: Use a separate struct/class (e.g., `LinkedList`) to manage list-level metadata (`head` and `tail`) separately from node-level data.
+
+```cpp
+template <typename T> struct Node {
+    T val;
+    Node<T>* next;
+    explicit Node(T val, Node<T>* next = nullptr) : val{val}, next{next} {}
+};
+
+template <typename T> struct LinkedList {
+    Node<T>* head = nullptr;
+    Node<T>* tail = nullptr;
+};
+```
+
+### Memory Management & Destructors
+
+#### Recursive Destructor Pitfall
+It is common to see `Node` defined with a recursive destructor to clean up memory:
+```cpp
+~Node() {
+    delete next; // Recursively deletes the rest of the list
+}
+```
+- **Risk**: For long lists (e.g., $10^5$ elements), the recursive call chain creates $O(N)$ stack frames, causing a **Stack Overflow** (segmentation fault) due to call stack exhaustion.
+
+#### Best Practice: Iterative Cleanup
+Avoid recursive node destruction. Instead, handle cleanup iteratively within the wrapper structure's destructor to guarantee $O(1)$ auxiliary stack space:
+```cpp
+template <typename T> struct LinkedList {
+    Node<T>* head = nullptr;
+    Node<T>* tail = nullptr;
+
+    ~LinkedList() {
+        Node<T>* current = head;
+        while (current != nullptr) {
+            Node<T>* next_node = current->next;
+            delete current;
+            current = next_node;
+        }
+    }
+};
+```
+
+

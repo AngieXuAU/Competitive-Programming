@@ -73,4 +73,27 @@ int main() {
 }
 ```
 
+## 5. Quick Syntactic Reminders ⚡
+
+### The Dual Role of `*`
+* **Declaration (`Type* ptr`)**: Read as *"pointer to `Type`"*. It defines a variable that stores a **memory address**.
+  ```cpp
+  Node* head; // head is a pointer (holds a memory address)
+  ```
+* **Expression (`*ptr`)**: Read as *"value pointed to by `ptr`"*. It **dereferences** the address to access the actual object/value.
+  ```cpp
+  Node firstNode = *head; // Dereferences head to copy the Node object itself
+  ```
+
+### Instantiation Syntax: Stack vs. Heap
+* **Stack (Value Type)**:
+  ```cpp
+  LinkedList list(head, tail); // Stack-allocated, automatically managed, type is 'LinkedList'
+  ```
+* **Heap (Pointer Type)**:
+  ```cpp
+  LinkedList* list = new LinkedList(head, tail); // Heap-allocated, requires manual 'delete', returns a pointer 'LinkedList*'
+  ```
+  *⚠️ Mixing them up (e.g. `LinkedList list = new LinkedList(...)`) causes a type mismatch compiler error.*
+
 https://gemini.google.com/app/c612f184294a5ca5

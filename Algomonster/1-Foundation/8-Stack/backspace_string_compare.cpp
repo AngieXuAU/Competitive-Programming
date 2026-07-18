@@ -27,12 +27,16 @@ bool backspace_string_compare(std::string &s, std::string &t) {
     char x, y;
 
     while (sptr >= 0 || tptr >= 0) {
+        sptr = get_next_valid_index(s, sptr);
+        tptr = get_next_valid_index(t, tptr);
+
+        if (sptr < 0 && tptr < 0) {
+            break;
+        }
+
         if ((sptr < 0 && tptr >= 0) || (sptr >= 0 && tptr < 0)) {
             return false;
         }
-
-        sptr = get_next_valid_index(s, sptr);
-        tptr = get_next_valid_index(t, tptr);
 
         x = s.at(sptr);
         y = t.at(tptr);
@@ -48,7 +52,7 @@ bool backspace_string_compare(std::string &s, std::string &t) {
 }
 
 int main() {
-    std::string s = "a##c", t = "#a#c";
+    std::string s = "c", t = "c";
     std::cout << backspace_string_compare(s, t);
     return 0;
 }

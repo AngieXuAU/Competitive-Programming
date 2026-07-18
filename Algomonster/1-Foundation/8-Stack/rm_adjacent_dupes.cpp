@@ -4,29 +4,21 @@
 #include <string>
 
 std::string remove_adjacent_duplicates_in_string(const std::string &s) {
-    // Your code here
-    std::stack<char> str;
+    std::string result;
 
     for (char c : s) {
-        if (str.empty()) { // if it's empty, push new value
-            str.push(c);
+        if (result.empty()) { // if it's empty, push new value
+            result.push_back(c);
         } else {
-            char top = str.top();
+            char top = result.back();
             if (c == top) {
-                str.pop();
+                result.pop_back();
             } else {
-                str.push(c);
+                result.push_back(c);
             }
         }
     }
 
-    // get the results into a string itself
-    std::string result;
-    while (!str.empty()) {
-        result.push_back(str.top());
-        str.pop();
-    }
-    std::reverse(result.begin(), result.end());
     return result;
 }
 

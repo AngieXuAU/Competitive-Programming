@@ -144,4 +144,24 @@ template <typename T> struct LinkedList {
 };
 ```
 
+### Avoiding Use-After-Free on Node Deletion
+
+When deleting a node from a linked list, you must capture the next node's address **before** freeing/deleting the node.
+
+#### The Bug (Use-After-Free)
+If you delete a pointer first, any subsequent attempt to access its members (like `current->next`) uses deallocated memory, leading to undefined behavior or segmentation faults.
+```cpp
+// ❌ INCORRECT (Dangling Pointer / Use-After-Free)
+delete head;
+return head->next; // CRASH! head has already been deallocated
+```
+
+#### The Safe Fix (Capture first)
+```cpp
+//  CORRECT
+Node<int>* new_head = head->next; // 1. Save pointer to next node
+delete head;                       // 2. Safely free current head memory
+return new_head;                   // 3. Return the saved pointer
+```
+
 

@@ -73,7 +73,17 @@ int main() {
 }
 ```
 
-## 5. Quick Syntactic Reminders ⚡
+## 5. Memory Deallocation & Dangling Pointers 🧹
+
+When you call `delete ptr;` on heap memory, the system does **not** wipe the physical data to keep operations fast.
+
+* **Under the Hood**: The OS and C++ memory manager simply update their internal bookkeeping (using structures like *free lists*) to mark that address range as "free" (available for rent). 
+* **The "Garbage" Data**: The original values remain in memory until overwritten by new allocations. However, the allocator might write bookkeeping data (like pointers to other free blocks) into the freed memory, causing reads of deallocated variables to return garbage values.
+* **Dangling Pointers**: After `delete ptr;`, the pointer variable `ptr` still stores the old memory address, but it now points to invalid memory. Trying to read or write through this pointer causes **Undefined Behavior** (e.g., Use-After-Free bugs or Segmentation Faults).
+
+---
+
+## 6. Quick Syntactic Reminders ⚡
 
 ### The Dual Role of `*`
 * **Declaration (`Type* ptr`)**: Read as *"pointer to `Type`"*. It defines a variable that stores a **memory address**.

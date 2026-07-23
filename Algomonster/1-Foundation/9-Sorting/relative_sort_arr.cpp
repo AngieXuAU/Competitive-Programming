@@ -12,8 +12,8 @@ std::vector<int> relative_sort_array(std::vector<int> &arr1,
     std::map<int, int> order;
 
     // convert arr1 to map: key = val, value = og index
-    for (int i = 0; i < arr1.size(); i++) {
-        int x = arr1[i];
+    for (int i = 0; i < arr2.size(); i++) {
+        int x = arr2[i];
         if (seen.count(x)) {
             continue;
         }
@@ -23,13 +23,14 @@ std::vector<int> relative_sort_array(std::vector<int> &arr1,
     }
 
     // construct the head and tail of arr2
-    for (int x : arr2) {
+    for (int x : arr1) {
         if (seen.count(x)) {
             head.push_back(x);
         } else {
             tail.push_back(x);
         }
     }
+
     // then sort the head
     std::sort(head.begin(), head.end(), [&order](const auto &a, const auto &b) {
         return (order[a] < order[b]);
@@ -60,7 +61,7 @@ int main() {
 
     std::vector<int> result = relative_sort_array(arr1, arr2);
 
-    pprint(arr1);
+    pprint(result);
 
     return 0;
 }

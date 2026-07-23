@@ -39,10 +39,6 @@ std::vector<int> relative_sort_array(std::vector<int> &arr1,
     // and sort the tail
     std::sort(tail.begin(), tail.end(),
               [](const auto &a, const auto &b) { return (a < b); });
-
-    // if a and b not in then return a < b, elif a or b not in seen then return
-    // the one in seen, else prioritise the one with the lower index
-    // question: does c++ treat this stuff 'symmetrically' ie.
     head.insert(head.end(), tail.begin(), tail.end());
 
     return head;

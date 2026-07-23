@@ -168,3 +168,29 @@ for (const auto &[key, value] : dict) {
 - **`auto`**: Asks the compiler to deduce the `std::pair<const Key, Value>` type automatically.
 - **`&` (Reference)**: Looks directly at the data inside the map instead of making a slow copy of every single pair during iteration.
 - **`const`**: Prevents accidental modifications to the map while reading, clearly signaling your intent.
+
+### Map Default Values and Insertion
+
+When a key does not exist in a map (`std::map` or `std::unordered_map`), accessing it via the subscript operator (`operator[]`) will automatically insert the key and **value-initialize** its value.
+
+* **Subscript Operator (`freq_map[key]`)**:
+  - Automatically inserts the key if it doesn't exist.
+  - For primitive types (like `int`, `double`), the value defaults to `0` (value-initialized).
+  - For standard objects (like `std::string`, `std::vector`), they invoke their default constructors (e.g., empty string `""`, empty vector `{}`).
+  - **Example**: `freq_map[key]++` is safe even if `key` does not yet exist.
+* **Member Function `.at(key)`**:
+  - Does **not** insert a default value if the key is missing.
+  - Throws a `std::out_of_range` exception.
+* **Insertion (`.insert()` / `.emplace()`)**:
+  - Requires you to explicitly pass both the key and the value: `freq_map.insert({key, 0});`.
+
+### Indexing with Signed `char` (Arrays vs. Maps)
+
+On many systems (like Windows GCC), the `char` type is **signed** by default, meaning its value ranges from `-128` to `127`. Extended ASCII or non-ASCII characters (e.g. UTF-8 bytes) can have negative values.
+
+* **Raw Array Indexing (`freqs[c]`)**:
+  - **Dangerous**: Passing a negative `char` directly to a raw array (e.g. `freqs[-56]`) triggers **Undefined Behavior** (it performs out-of-bounds pointer arithmetic under the hood, leading to silent memory corruption or crashes/segmentation faults).
+  - **Solution**: Cast the `char` to `unsigned char` first: `unsigned char uc = static_cast<unsigned char>(c); freqs[uc]++;` to map negative values safely to `[128, 255]`.
+* **Map Indexing (`freq_map[c]`)**:
+  - **Safe**: A `std::map` does not use the key as a direct memory offset. It uses tree comparisons (`<`), which handle negative numbers perfectly fine.
+  - **No Cast Needed**: Casting to `unsigned char` is redundant here because it gets implicitly coerced back to the map's key type (`char`), which converts the value back to the original signed value anyway..

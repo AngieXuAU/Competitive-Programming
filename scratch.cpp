@@ -3,21 +3,27 @@
 #include <string>
 #include <vector>
 
-std::string largest_number_from_array(std::vector<std::string> &nums) {
-    std::string result = "";
+// std::string largest_number_from_array(std::vector<std::string> &nums) {
+//     std::string result = "";
 
-    std::sort(nums.begin(), nums.end());
+//     std::sort(nums.begin(), nums.end());
 
-    for (std::string str : nums) {
-        result.append(str);
-    }
-    return result;
-}
+//     for (std::string str : nums) {
+//         result.append(str);
+//     }
+//     return result;
+// }
 
 int main() {
-    std::vector<std::string> nums = {"3", "30", "34", "5", "9"};
-    std::string result = largest_number_from_array(nums);
-    std::cout << result << std::endl;
+    // std::vector<std::string> nums = {"3", "30", "34", "5", "9"};
+    // std::string result = largest_number_from_array(nums);
+    // std::cout << result << std::endl;
+
+    size_t x = 0;
+    while (x < 1'000'000) {
+        x++;
+    }
+    std::cout << x;
 
     return 0;
 }

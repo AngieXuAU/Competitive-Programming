@@ -1,25 +1,29 @@
 // Given a sorted array of integers and an integer called target, find the
 // element that equals the target and return its index. If the element is not
 // found, return -1.
+// #include <algorithm>
+// #include <cmath>
 #include <iostream>
 #include <vector>
 
 int binary_search(std::vector<int> &arr, int target) {
+    if (arr.empty()) {
+        return -1;
+    }
+
     int max = arr.size() - 1;
     int i = max / 2;
-    std::vector<int> bounds = {0, max};
+    int min = 0;
 
-    while (true) {
+    while (min <= max) {
         if (arr[i] == target) {
             return i;
-        } else if ((bounds[1] - bounds[0]) == 1) { // adjacent bounds
-            break;
         } else if (arr[i] < target) {
-            bounds[0] = i;
-            i = (i + bounds[1]) / 2;
-        } else {           // target < val @ i
-            bounds[1] = i; // set upper bound to be i
-            i = (i + bounds[0]) / 2;
+            min = i + 1;
+            i = min + (max - min) / 2;
+        } else {         // target < val @ i
+            max = i - 1; // set upper bound to be i
+            i = min + (max - min) / 2;
         }
     }
     return -1;

@@ -1,0 +1,8 @@
+to be completed:
+
+- largest number from arr
+- optimise
+    - first true
+    - first not smaller
+    - first occurrence
+    - 

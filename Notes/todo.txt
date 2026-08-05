@@ -5,4 +5,7 @@ to be completed:
     - first true
     - first not smaller
     - first occurrence
-    - 
+    - square root estimation
+    - find min in rotated
+    - peak of mountain
+    

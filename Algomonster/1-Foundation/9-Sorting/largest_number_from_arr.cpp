@@ -3,6 +3,22 @@
 #include <string>
 #include <vector>
 
+// bool comparator(std::string a, std::string b) {
+//     // doesn't matter if one of the strings are empty - return arbitrary
+//     value if (a.size() == 0 || b.size() == 0) {
+//         return true;
+//     }
+
+//     // if the first digit doesn't match, alphabetical order
+//     if (a[0] != b[0]) {
+//         return (a > b);
+//     }
+
+//     // if the first digit matches, strip off the first digit and compare
+//     again return comparator(a.substr(1, a.size() - 1), b.substr(1, b.size() -
+//     1));
+// }
+
 std::string largest_number_from_array(std::vector<int> &nums) {
     std::string result = "";
 
@@ -32,8 +48,8 @@ std::string largest_number_from_array(std::vector<int> &nums) {
 }
 
 int main() {
-    // std::vector nums = {3, 30, 34, 5, 9};
-    std::vector nums = {121, 12};
+    std::vector nums = {3, 30, 34, 5, 9};
+    // std::vector nums = {121, 12};
     std::string result = largest_number_from_array(nums);
     std::cout << result << std::endl;
 }

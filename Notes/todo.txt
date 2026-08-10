@@ -8,4 +8,6 @@ to be completed:
     - square root estimation
     - find min in rotated
     - peak of mountain
-    
+- two pointer
+    - rm dupes
+    - two sum sorted

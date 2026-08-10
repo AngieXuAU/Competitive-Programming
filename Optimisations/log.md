@@ -32,3 +32,9 @@ fix: Extracted the skip logic into a helper `get_next_valid_index(str, index)` t
 tags: binary-search, boundary-conditions, integer-overflow, infinite-loop, index-out-of-bounds
 mistake: (1) Midpoint calculation `(min + max) / 2` vulnerable to integer overflow. (2) Standard binary search had fragile `while (true)` loop with adjacent check `min == max`, and didn't exclude checked index `i` from new bounds (`min = i` / `max = i`), looping infinitely. (3) "First true" boundary search relied on neighboring element checks (`arr[i]` and `arr[i-1]`), risking out-of-bounds errors.
 fix: (1) Use `min + (max - min) / 2` to prevent overflow. (2) Replace with `while (min <= max)`. (3) Exclude checked element using `min = mid + 1` / `max = mid - 1`. (4) Avoid neighbor checks by using "record best candidate and narrow search space" pattern: record `boundary_index = mid` when true, then search left with `max = mid - 1`.
+
+## 2026-08-05 — Remove Duplicates (Algomonster)
+tags: two-pointer, array, complexity, in-place, iterator-out-of-bounds, short-circuit-evaluation, vector-resize
+mistake: (1) Used `arr.erase()` inside a loop, resulting in O(N^2) time complexity due to O(N) element shifting. (2) Attempted an in-place two-pointer loop without proper boundary checks, allowing `j` to exceed `arr.size()`. (3) Placed boundary checks after array access (`arr[i] == arr[j] && j < arr.size()`), bypassing short-circuit evaluation protection. (4) Attempted to assign `arr[i] = arr[j]` when `j` reached `arr.size()` (out of bounds).
+fix: (1) Switched to a two-pointer writing technique, updating the vector's size at the end using `arr.resize()` for O(N) time and O(1) space. (2) Ensured the boundary check runs first (`j < arr.size() && arr[i] == arr[j]`) to exploit short-circuiting. (3) Added logic to safely handle elements and resize bounds without writing out-of-bounds.
+

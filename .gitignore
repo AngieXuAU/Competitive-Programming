@@ -16,7 +16,7 @@ build/
 
 # Ignore steering files
 .kiro/
-AGENTS.md
+.agents/*
 
 # Ignore formatting
 .clang-format

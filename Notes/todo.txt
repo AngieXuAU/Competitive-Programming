@@ -11,3 +11,6 @@ to be completed:
 - two pointer
     - rm dupes
     - two sum sorted
+
+- depth first search
+    - implement standard pre-order traversal, in-order traversal, post-order traversal

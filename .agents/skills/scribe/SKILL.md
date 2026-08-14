@@ -17,3 +17,13 @@ description: Summarises DSA concepts and competitive programming notes in the No
    - Add clean, commented C++ snippets/examples if requested.
 4. **Update Notes:** Append/insert summary in target file; maintain structure, avoid wordiness.
 5. **Verify:** Check `.md` rendering; ensure no broken links or syntax errors.
+6. **Active Recall:** At the top of each section of each notes file, maintain a set of active recall questions that comprehensively test high yield CP or C++ knowledge, and a list of answers, grouping all the questions together and then all the answers together, e.g.
+```
+Qs:
+1.
+2.
+--
+As:
+1.
+2.
+```

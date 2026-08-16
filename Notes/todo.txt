@@ -14,3 +14,8 @@ to be completed:
 
 - depth first search
     - implement standard pre-order traversal, in-order traversal, post-order traversal
+
+
+- leetcode
+    - optimise 9
+    - optimise 13

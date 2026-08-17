@@ -20,4 +20,6 @@ to be completed:
     - optimise 9
     - optimise 13
     - 5
-    
+
+- CSES
+    - implement counting rooms (no peaking)

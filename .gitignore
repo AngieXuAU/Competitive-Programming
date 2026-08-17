@@ -22,3 +22,7 @@ build/
 .clang-format
 
 compile_flags.txt
+
+CSES/tests/*
+
+temp.md

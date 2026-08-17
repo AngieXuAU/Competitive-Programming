@@ -157,3 +157,6 @@ To test your mental map of these relationships, answer these true/false question
 3. **True or False?** "A Binary Search Tree (BST) MUST be balanced."
 
 ## Tree Traversal
+1. In-order traversal: left branch first, then current, then right branch
+2. Pre-order traversal: current, then left branch and then right branch
+3. Post-order traversal: left subtree, then right subtree, and finally the current

@@ -27,7 +27,7 @@ Here is how they fit into one another:
   - **Every Complete tree is automatically a Balanced tree!** (Filling left-to-right guarantees the left and right subtrees never differ in height by more than 1).
   - *Note*: Not every Complete tree is Full (the last level might leave a node with only 1 child).
 
-#### 🌿 **Full Binary Tree**
+#### 🌿 **Full (/Proper or /Strict) Binary Tree**
 - **Definition**: Every node has **either 0 or 2 children** (never 1 child).
 - **Special Case Relationship**:
   - Full and Complete are independent concepts—a tree can be Full without being Complete, or Complete without being Full!

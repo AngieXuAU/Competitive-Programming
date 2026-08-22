@@ -273,3 +273,8 @@ items.sort(key=lambda x: (x[0], -x[1]))
 
 ------------------
 
+By linearity of expectation, after $n$ weeks, the total expected score is simply: $$\text{Expected Score} = \text{start} + n \times \frac{\text{worse} - \text{better}}{100.0}$$
+
+For l: $1 + 10 \times \frac{50 - 10}{100.0} = 1 + 10 \times 0.4 = 5.0$
+For t: $2 + 10 \times \frac{0 - 80}{100.0} = 2 + 10 \times (-0.8) = -6.0$
+For cobra: $3 + 10 \times \frac{20 - 20}{100.0} = 3.0$

@@ -7,7 +7,9 @@ int main() {
     long num_of_choc_types;
     cin >> num_of_choc_types;
 
-    long choc_count[num_of_choc_types];
+    const int MAXN = 200005;
+    long choc_count[MAXN];
+    // long choc_count[num_of_choc_types];
     int i;
     for (i = 0; i < num_of_choc_types; i++) {
         cin >> choc_count[i];

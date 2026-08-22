@@ -228,5 +228,48 @@ grid = [[0] * cols for _ in range(rows)]  # Avoid [[0]*cols]*rows !
 items.sort(key=lambda x: (x[0], -x[1]))
 ```
 
+---
+
+## Data Type Size & Range Limitations (C++)
+
+### Integer Types
+
+| Data Type | Bit Width | Byte Size | Minimum Value | Maximum Value | Scientific / Approx. Range |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `int` | 32 bits | 4 B | `-2,147,483,648` (-2³¹) | `2,147,483,647` (2³¹ - 1) | ≈ ±2.14 × 10⁹ |
+| `unsigned int` | 32 bits | 4 B | `0` | `4,294,967,295` (2³² - 1) | ≈ 4.29 × 10⁹ |
+| `long` | 32 / 64 bits | 4 / 8 B | Win: `-2,147,483,648`<br>Linux 64: `-9,223,372,036,854,775,808` | Win: `2,147,483,647`<br>Linux 64: `9,223,372,036,854,775,807` | ≈ ±2.14 × 10⁹ (Win)<br>≈ ±9.22 × 10¹⁸ (Linux) |
+| `unsigned long` | 32 / 64 bits | 4 / 8 B | `0` | Win: `4,294,967,295`<br>Linux 64: `18,446,744,073,709,551,615` | ≈ 4.29 × 10⁹ (Win)<br>≈ 1.84 × 10¹⁹ (Linux) |
+| `long long` | 64 bits | 8 B | `-9,223,372,036,854,775,808` (-2⁶³) | `9,223,372,036,854,775,807` (2⁶³ - 1) | ≈ ±9.22 × 10¹⁸ |
+| `unsigned long long` | 64 bits | 8 B | `0` | `18,446,744,073,709,551,615` (2⁶⁴ - 1) | ≈ 1.84 × 10¹⁹ |
+| `__int128` (GCC extension) | 128 bits | 16 B | ≈ -1.70 × 10³⁸ (-2¹²⁷) | ≈ 1.70 × 10³⁸ (2¹²⁷ - 1) | ≈ ±1.70 × 10³⁸ |
+
+### Character Types
+
+| Data Type | Bit Width | Byte Size | Minimum Value | Maximum Value | Scientific / Approx. Range | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `char` | 8 bits | 1 B | `-128` or `0` | `127` or `255` | ≈ 10² | Default char type (signed on x86 GCC/MSVC, unsigned on ARM) |
+| `signed char` | 8 bits | 1 B | `-128` (-2⁷) | `127` (2⁷ - 1) | ≈ ±10² | Explicitly signed byte |
+| `unsigned char` | 8 bits | 1 B | `0` | `255` (2⁸ - 1) | ≈ 2.55 × 10² | Explicitly unsigned byte |
+| `wchar_t` | 16 / 32 bits | 2 / 4 B | Win: `0` / `-32,768`<br>Linux: `-2,147,483,648` | Win: `65,535` / `32,767`<br>Linux: `2,147,483,647` | ≈ 6.55 × 10⁴ (Win)<br>≈ ±2.14 × 10⁹ (Linux) | Wide character representation |
+| `char8_t` (C++20) | 8 bits | 1 B | `0` | `255` | ≈ 2.55 × 10² | UTF-8 code unit |
+| `char16_t` | 16 bits | 2 B | `0` | `65,535` (2¹⁶ - 1) | ≈ 6.55 × 10⁴ | UTF-16 code unit |
+| `char32_t` | 32 bits | 4 B | `0` | `4,294,967,295` (2³² - 1) | ≈ 4.29 × 10⁹ | UTF-32 code unit / Unicode scalar |
+
+### Floating-Point Types
+
+| Data Type | Bit Width | Byte Size | Precision | Min Positive Value | Max Value | Scientific / Approx. Range |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `float` | 32 bits | 4 B | ~6–7 decimal digits | ≈ 1.175 × 10⁻³⁸ | ≈ 3.402 × 10³⁸ | ≈ ±3.40 × 10³⁸ |
+| `double` | 64 bits | 8 B | ~15–17 decimal digits | ≈ 2.225 × 10⁻³⁰⁸ | ≈ 1.797 × 10³⁰⁸ | ≈ ±1.80 × 10³⁰⁸ |
+| `long double` | 80 / 128 bits | 10–16 B | ~18–19 digits (80-bit x87)<br>~34 digits (IEEE 128-bit) | ≈ 3.362 × 10⁻⁴⁹³² | ≈ 1.189 × 10⁴⁹³² | ≈ ±1.19 × 10⁴⁹³² |
+
+### Quick CP Rules of Thumb
+- **10⁹**: Fits in standard 32-bit `int` (max ≈ 2.14 × 10⁹).
+- **10¹⁸**: Requires 64-bit `long long` (max ≈ 9.22 × 10¹⁸).
+- **10³⁸**: Requires `__int128` (GCC extension).
+- **Exact Floating Precision**: `double` preserves exact integer values up to 2⁵³ ≈ 9 × 10¹⁵.
+
+
 ------------------
 

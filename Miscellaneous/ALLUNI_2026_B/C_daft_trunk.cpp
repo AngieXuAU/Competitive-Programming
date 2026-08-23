@@ -1,4 +1,4 @@
-#include <cmath>
+// #include <cmath>
 #include <iostream>
 
 using namespace std;
@@ -26,12 +26,14 @@ int main() {
             if (dec == true) {
                 cout << tmp << " needs replacing\n";
                 replacements++;
-                prev = pow(10, 5);
+                dec = false;
             } else {
                 dec = true;
+                prev = tmp;
             }
         } else {
             dec = false;
+            prev = tmp;
         }
     }
 

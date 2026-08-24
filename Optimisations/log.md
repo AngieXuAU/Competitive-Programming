@@ -47,3 +47,8 @@ fix: (1) Removed all reset logic after match — just `res.push_back(tail)` and 
 tags: complete-search, recursion, backtracking, state-management, vector-clear
 mistake: Cleared the global `subset` vector inside the recursion base case (`subset.clear()`), which corrupted the vector state during backtracking and caused the subsequent `pop_back()` in the parent recursive frame to fail on an empty vector.
 fix: Removed `subset.clear()` from the base case. The recursion's symmetric `push_back()` and `pop_back()` calls naturally manage the state, automatically restoring the vector to empty when the search completes.
+
+## 2026-08-25 — N-Queens (CSES Book)
+tags: complete-search, backtracking, array-out-of-bounds, diagonal-indexing, state-management
+mistake: Declared diagonal tracking arrays `diag1` and `diag2` with size `n` (and later `2 * n - 2`), which caused out-of-bounds array access (undefined behavior) because the maximum indices accessed (`x + y` and `x - y + n - 1`) can be up to `2 * n - 2`. Also, incorrectly described the backslash diagonal indexing formula as `x + y + n - 1`.
+fix: Sized the diagonal arrays to `2 * n - 1` (or `2 * n` to be safe) to prevent out-of-bounds access up to the maximum index `2 * n - 2`. Corrected the index formula for the backslash diagonal to `x - y + n - 1` to ensure constant values along the diagonal.

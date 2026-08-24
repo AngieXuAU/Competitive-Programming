@@ -331,3 +331,86 @@ long long lsb = x & -x;
 // Check if power of two
 bool is_pow2 = (x > 0) && ((x & (x - 1)) == 0);
 ```
+## 7. Complete Search
+### Generate all subsets
+- Recursion
+```cpp
+int n = 3;
+
+vector<int> subset;
+
+void search(int k) {
+    if (k == n) {
+        for (int x : subset)
+            cout << x << "\t";
+        cout << "\n";
+    } else {
+        search(k + 1);
+        subset.push_back(k);
+        search(k + 1);
+        subset.pop_back();
+    }
+}
+
+int main() {
+    search(0);
+    return 0;
+}
+```
+
+- Bitwise Manipulation
+```cpp
+for (int b = 0; b < (1<<n); b++) {
+    vector<int> subset;
+    for (int i = 0; i < n; i++) {
+        if (b&(1<<i)) subset.push_back(i);
+    }
+}
+```
+Note `1<<n` uses 32-bit signed integer which will overflow if $n \geq31$. For larger (up to 62) use 64-bit literal: `1LL << n`.
+
+### Generate permutations
+```cpp
+int n = 3;
+
+vector<int> permutation;
+bool chosen[3] = {false};
+
+void search() {
+    if (permutation.size() == n) {
+        for (int x : permutation) {
+            cout << x << "\t";
+        }
+        cout << "\n";
+    } else {
+        for (int i = 0; i < n; i++) {
+            if (chosen[i])
+                continue;
+            chosen[i] = true;
+            permutation.push_back(i);
+            search();
+            chosen[i] = false;
+            permutation.pop_back();
+        }
+    }
+}
+```
+
+#### Using built-in:
+- permutation must be sorted, otherwise only generates lexicographically larger permutations
+```cpp
+vector<int> permutation;
+for (int i = 0; i < n; i++) {
+    permutation.push_back(i);
+}
+do {
+// process permutation
+} while (next_permutation(permutation.begin(),permutation.end()));
+
+```
+
+### Backtracking
+
+### Pruning the search
+
+### Meet in the middle

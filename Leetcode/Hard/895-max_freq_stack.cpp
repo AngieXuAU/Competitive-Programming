@@ -5,53 +5,59 @@
  * int param_2 = obj->pop();
  */
 
+#include <iostream>
+#include <stack>
 #include <unordered_map>
-#include <utility>
+#include <vector>
+
 using namespace std;
 
 class FreqStack {
   private:
-    unordered_map<int, pair<int, int>> freqs;
-    vector<int> heap = {-1};
+    unordered_map<int, int> freqs;
+    vector<stack<int>> heap;
 
   public:
     FreqStack() {}
 
     void push(int val) {
-        if (!freqs.contains(val)) {
-            freqs[val] = {1, heap.size()};
-            heap.push_back(val);
+        int existing_max = heap.size();
+        freqs[val]++;
+
+        if (freqs[val] > existing_max) {
+            heap.emplace_back();
+            heap.back().push(val);
         } else {
-            freqs[val].first++;
+            heap[freqs[val] - 1].push(val);
         }
-        upheap(val);
     }
 
     int pop() {
-        int result = heap[1];
-        downheap();
+        stack<int> *stk = &heap[heap.size() - 1];
+        int result = stk->top();
+        freqs[result]--;
+        stk->pop();
+        if (stk->empty()) {
+            heap.erase(heap.end() - 1);
+        }
         return result;
     }
-
-    void upheap(int val) {
-        int child = freqs.at(val).first;
-        int index = freqs.at(val).second;
-        int parent = heap[index / 2];
-
-        while (child > parent) {
-            // swap stored indices
-            freqs.at(child).second = {index / 2};
-            freqs.at(parent).second = {index};
-
-            // swap in heap storage
-            swap(heap.at(index), heap.at(index / 2));
-
-            // iterate
-            index /= 2;
-            child = heap[index];
-            parent = heap[index / 2];
-        }
-    }
-
-    void downheap() { heap.erase(heap.begin() + 1); }
 };
+
+int main() {
+    FreqStack *obj = new FreqStack();
+    obj->push(1);
+    obj->push(1);
+    obj->push(1);
+    obj->push(2);
+    cout << obj->pop() << "\n";
+    cout << obj->pop() << "\n";
+    obj->push(2);
+    obj->push(2);
+    obj->push(1);
+    cout << obj->pop() << "\n";
+    cout << obj->pop() << "\n";
+    cout << obj->pop() << "\n";
+
+    return 0;
+}

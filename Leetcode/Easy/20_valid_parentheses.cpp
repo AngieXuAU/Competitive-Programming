@@ -19,7 +19,7 @@ class Solution {
     bool isValid(const string &s) {
         stack<char> seen;
 
-        char c, top;
+        char c;
         for (int i = 0; i < s.size(); i++) {
             c = s[i];
             if (c == '(' || c == '[' || c == '{') {
